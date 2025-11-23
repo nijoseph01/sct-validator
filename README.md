@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+GitHub Pages (Completely Free)
+If you want the URL to look like yourname.github.io/sct-validator.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Install the helper Run this command in your terminal:
 
-## Available Scripts
+Bash
 
-In the project directory, you can run:
+npm install gh-pages --save-dev
+2. Update package.json Open your package.json file and add a "homepage" property at the top level (e.g., under "name"):
 
-### `npm start`
+JSON
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+"homepage": "https://<your-github-username>.github.io/sct-validator",
+3. Add Deployment Scripts In the same package.json, look for "scripts". Add these two lines:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+JSON
 
-### `npm test`
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
+  ... other scripts
+}
+4. Deploy Run this in your terminal:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Bash
 
-### `npm run build`
+npm run deploy
+This will create a branch in your GitHub repo called gh-pages and serve the website from there.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Important Note on Data Privacy
+Since this tool validates financial messages (SCT Inst), users might be worried about uploading sensitive XML files.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Because you are using a Client-Side React App (as written in the code I provided previously), no data is sent to a server. The file is processed entirely within the user's browser memory.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Recommendation: When you deploy the site, add a footer or a note saying:
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+"Security Note: All processing is done locally in your browser. No XML data is uploaded to any server."
