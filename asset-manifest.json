@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sct-validator/static/css/main.254f4390.css",
-    "main.js": "/sct-validator/static/js/main.ecf896fe.js",
+    "main.js": "/sct-validator/static/js/main.7e74ce5b.js",
     "static/js/453.632dd976.chunk.js": "/sct-validator/static/js/453.632dd976.chunk.js",
     "index.html": "/sct-validator/index.html",
     "main.254f4390.css.map": "/sct-validator/static/css/main.254f4390.css.map",
-    "main.ecf896fe.js.map": "/sct-validator/static/js/main.ecf896fe.js.map",
+    "main.7e74ce5b.js.map": "/sct-validator/static/js/main.7e74ce5b.js.map",
     "453.632dd976.chunk.js.map": "/sct-validator/static/js/453.632dd976.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.254f4390.css",
-    "static/js/main.ecf896fe.js"
+    "static/js/main.7e74ce5b.js"
   ]
 }
