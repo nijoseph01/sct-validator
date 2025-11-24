@@ -9,48 +9,49 @@ import './App.css';
 const FIELD_MAPPINGS = {
   'pacs.008': [
     // Header Info
-    { code: 'T014', label: 'T014: Message ID',          paths: ['GrpHdr.MsgId'] },
-    { code: 'T056', label: 'T056: Timestamp',           paths: ['GrpHdr.CreDtTm'] },
+    { code: 'T014', label: 'Originator Reference ID',          paths: ['CdtTrfTxInf.PmtId.EndToEndId'] },
+    { code: 'T056', label: 'Timestamp',           paths: ['GrpHdr.CreDtTm'] },
 
     // Transaction Info
-    { code: 'T054', label: 'T054: Transaction ID',      paths: ['CdtTrfTxInf.PmtId.TxId'] },
-    { code: 'E001', label: 'E001: End-to-End ID',       paths: ['CdtTrfTxInf.PmtId.EndToEndId'] },
-    { code: 'C001', label: 'C001: Amount',              paths: ['CdtTrfTxInf.IntrBkSttlmAmt'] },
+    { code: 'T054', label: 'Transaction ID',      paths: ['CdtTrfTxInf.PmtId.TxId'] },
+    { code: 'E001', label: 'Name of the Beneficiary',  paths: ['CdtTrfTxInf.Cdtr.Nm'] },
+    { code: 'C001', label: 'IBAN of the account of the Beneficiary',              paths: ['CdtTrfTxInf.CdtrAcct.Id.IBAN'] },
     
-    // T002: Settlement Date (Can be in Tx Info OR inside Settlement Info in Header)
-    { code: 'T002', label: 'T002: Settlement Date',     paths: [
-        'CdtTrfTxInf.IntrBkSttlmDt',       // Standard Location
-        'GrpHdr.SttlmInf.IntrBkSttlmDt',   // Alternative Location
-        'GrpHdr.IntrBkSttlmDt'             // Rare Variation
+    // T002: 'Amount of the SCT Inst in euro
+    { code: 'T002', label: 'Amount of the SCT Inst in euro',     paths: [
+        'CdtTrfTxInf.IntrBkSttlmAmt',       // Standard Location
+        'GrpHdr.SttlmInf.IntrBkSttlmAmt',   // Alternative Location
+        'GrpHdr.IntrBkSttlmAmt'             // Rare Variation
     ]},
 
-    // T007: Service Level (SEPA) - Check Tx Level first, then Header Level
-    { code: 'T007', label: 'T007: Purpose of SCT Inst',       paths: [
+    // T007: Purpose of SCT Inst
+    { code: 'T007', label: 'Purpose of SCT Inst',       paths: [
         'CdtTrfTxInf.Purp.Cd',  // Tx Level
         'GrpHdr.PmtTpInf.SvcLvl.Cd'        // Header Level (Common for Batches)
     ]},
 
-    // T008: Local Instrument (INST)
-    { code: 'T008', label: 'T008: Local Instrument',    paths: [
-        'CdtTrfTxInf.PmtTpInf.LclInstrm.Cd',
-        'GrpHdr.PmtTpInf.LclInstrm.Cd'
+    // T008: Category purpose
+    { code: 'T008', label: 'Category purpose',    paths: [
+      'GrpHdr.PmtTpInf.CtgyPurp.Prtry'
     ]},
 
-    // T009: Category Purpose
-    { code: 'T009', label: 'T009: Category Purpose',    paths: [
-        'CdtTrfTxInf.RmtInf',
-        'GrpHdr.PmtTpInf.CtgyPurp.Cd'
+    // T009: Remittance Information
+    { code: 'T009', label: 'Remittance Information',    paths: [
+        'CdtTrfTxInf.RmtInf.Ustrd',
+        'CdtTrfTxInf.RmtInf.Strd.CdtrRefInf.Ref'
     ]},
 
     // Other Info
-    { code: 'D001', label: 'D001: Debtor IBAN',         paths: ['CdtTrfTxInf.DbtrAcct.Id.IBAN'] },
-    { code: 'P001', label: 'P001: Remittance Info',     paths: ['CdtTrfTxInf.RmtInf.Ustrd'] }
+    { code: 'D001', label: 'Debtor IBAN',         paths: ['CdtTrfTxInf.DbtrAcct.Id.IBAN'] },
+    { code: 'P001', label: 'Name of the originator',     paths: ['CdtTrfTxInf.Dbtr.Nm'] }
   ],
 
   // Simplified pacs.002 support
   'pacs.002': [
-    { code: 'T014', label: 'T014: Original Msg ID',     paths: ['OrgnlGrpInfAndSts.OrgnlMsgId'] },
-    { code: 'R001', label: 'R001: Status Code',         paths: ['TxInfAndSts.TxSts'] }
+    { code: 'T014', label: 'Originator Reference ID',          paths: ['OrgnlGrpInfAndSts.OrgnlMsgId'] },
+    { code: 'XXXX', label: 'Originator Transaction ID',          paths: ['TxInfAndSts.OrgnlTxId'] },
+    { code: 'ACCP', label: 'Settlement Confirmation',         paths: ['OrgnlGrpInfAndSts.GrpSts'] },
+    { code: 'T008', label: 'Categrory purpose',         paths: ['TxInfAndSts.OrgnlEndToEndId'] }
   ]
 };
 
