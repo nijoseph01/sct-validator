@@ -1,180 +1,78 @@
-SCT Inst Validator (React)
-
-A secure, client-side React application for validating SEPA Instant Credit Transfer (SCT Inst) XML messages. This tool specifically validates pacs.008 (Instructions) and pacs.002 (Status Reports) against specific SCT Inst dataset elements.
-
-🚀 Features
-
-Dual Input: Drag & Drop XML files or Paste XML content directly.
-
-Format Detection: Automatically detects:
-
-pacs.008 (SCT Inst Instruction)
-
-pacs.002 (Positive Confirmation - ACCP)
-
-pacs.002 (Negative Confirmation - RJCT)
-
-Specific Field Extraction: Extracts and validates key fields like E001, C001, T007, T056, etc.
-
-Robust Parsing:
-
-Uses native browser DOMParser (no heavy external dependencies).
-
-Handles namespace prefixes automatically (e.g., ns:Document vs Document).
-
-Fallback Logic: Checks multiple XML paths (Header vs Transaction level) to find values like Settlement Date or Payment Type.
-
-Security: All processing happens locally in the browser. No data is sent to any server.
-
-📋 Validated Fields
-
-The application looks for the following SCT Inst Rulebook codes:
-
-Code
-
-Label
-
-Description
-
-T014
-
-Message ID
-
-Unique Message Identification
-
-T056
-
-Timestamp
-
-Creation Date Time (Critical for 10s timeout)
-
-T054
-
-Transaction ID
-
-Unique Transaction Identification
-
-E001
-
-End-to-End ID
-
-End-to-End Identification
-
-C001
-
-Amount
-
-Interbank Settlement Amount
-
-T002
-
-Settlement Date
-
-Interbank Settlement Date
-
-T007
-
-Purpose
-
-Purpose Code (e.g., MP2P, SALA)
-
-T008
-
-Local Instrument
-
-Local Instrument Code (Must be 'INST')
-
-T009
-
-Category Purpose
-
-Category Purpose Code
-
-D001
-
-Debtor IBAN
-
-Originator Account Number
-
-P001
-
-Remittance Info
-
-Unstructured Remittance Information
-
-R001
-
-Status Code
-
-Transaction Status (ACCP/RJCT)
-
-🛠️ Installation & Setup
-
-Clone the repository:
-
-git clone [https://github.com/your-username/sct-validator.git](https://github.com/your-username/sct-validator.git)
-cd sct-validator
-
-
-Install dependencies:
-
-npm install
-# Note: Main dependencies are 'react', 'react-dom', 'react-dropzone', 'lucide-react'
-
-
-Run locally:
-
-npm start
-
-
-Open http://localhost:3000 to view it in the browser.
-
-📦 Deployment (GitHub Pages)
+# SCT XML Validator (React)
+
+A premium, client-side React application for validating SEPA Instant Credit Transfer (SCT Inst) XML messages. This tool features a sleek dark-mode glassmorphism interface and specifically validates `pacs.008` (Instructions) and `pacs.002` (Status Reports) against the SEPA SCT Inst dataset elements.
+
+## 🚀 Features
+
+- **Premium UI**: Designed with modern glassmorphism aesthetics, utilizing deep radial space themes, transparent panels, and `lucide-react` icons.
+- **Dual Input**: Drag & Drop XML files into the interactive zone or paste XML content directly.
+- **Format Detection**: Automatically detects:
+  - `pacs.008` (SCT Inst Instruction)
+  - `pacs.002` (Payment Status Report)
+- **Extended E-Commerce & P2P Parsing**:
+  - Tracks specific Category Purposes (e.g., `GP2P`).
+  - Identifies **Ultimate Debtor** (`UltmtDbtr`) and **Ultimate Creditor** (`UltmtCdtr`) for aggregated payments.
+  - Exposes the original End-to-End IDs and Message IDs for clear `pacs.002` status tracking loops.
+- **Robust Parsing**:
+  - Uses `fast-xml-parser` for highly robust namespace-agnostic extraction.
+  - Implements multi-path fallback logic (checking Header vs. Transaction level configurations).
+- **Security**: 100% Client-Side. No servers. No telemetry. Your financial XMLs remain locally in your browser memory.
+
+## 📋 Comprehensive Validated Fields
+
+The application looks for the following SEPA Inst elements and maps them accordingly:
+
+| Code   | Field                     | Description & Use Cases |
+| :---   | :---                      | :--- |
+| **T056** | Message Timestamp         | Creation Date Time (Critical for 10s timeouts) |
+| **T014** | Originator Reference ID   | End-to-End Identification (`EndToEndId`) |
+| **T054** | Transaction ID            | Unique Transaction Identification (`TxId`) |
+| **T002** | Amount                    | Interbank Settlement Amount in Euro |
+| **T008** | Category Purpose          | Essential for tracking P2P (`GP2P`) and specific models |
+| **INIT** | Initiating Party Name/ID  | Identification of the payment initiator |
+| **ULT1** | Ultimate Debtor           | The root sender in P2Pro models |
+| **ULT3** | Ultimate Creditor         | The ultimate receiving merchant or party |
+| **ACCP** | Status (pacs.002)         | Target Transaction Status (`ACCP`, `RJCT`, etc.) |
+| **RSN1** | Status Reason (pacs.002)  | Fine-grained failure analysis (`AB03`, `AC01`, etc.) |
+
+## 🛠️ Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/nijoseph01/sct-validator.git
+   cd sct-validator
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run locally:**
+   ```bash
+   npm start
+   ```
+   Open `http://localhost:3000` to view the beautiful analyzer in your browser.
+
+## 📦 Deployment (GitHub Pages)
 
 This project is configured for easy deployment to GitHub Pages.
 
-Install the deployer (if not already installed):
+1. Configure `package.json` with your homepage URL:
+   `"homepage": "https://<your-username>.github.io/sct-validator"`
+2. Run the deployment script:
+   ```bash
+   npm run deploy
+   ```
+   *This automatically builds for production and pushes to your `gh-pages` branch.*
 
-npm install gh-pages --save-dev
+## 🔒 Security Note
 
+This is a **Client-Side Single Page Application (SPA)**.
+* No backend server exists.
+* No cookies or local storage tracking.
+* All XML parsing executes purely in Javascript memory.
+* Refreshing the page instantaneously clears all data.
 
-Configure package.json:
-Add your homepage URL at the top level:
-
-"homepage": "https://<your-username>.github.io/sct-validator",
-
-
-Deploy:
-
-npm run deploy
-
-
-This creates a production build and pushes it to the gh-pages branch.
-
-🔒 Security Note
-
-This application is a Client-Side Single Page Application (SPA).
-
-It does not have a backend server.
-
-It does not store cookies or local storage data.
-
-All XML parsing is performed in the user's browser memory using JavaScript.
-
-Refreshing the page clears all data.
-
-🤝 Contributing
-
-Fork the Project
-
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-
-Push to the Branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-📄 License
-
-Distributed under the MIT License. See LICENSE for more information.
+## 📄 License
+Distributed under the MIT License. See `LICENSE` for more information.
